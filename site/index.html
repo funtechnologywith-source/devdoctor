@@ -18,7 +18,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { background: var(--ground); }
+  html { background: var(--ground); scroll-behavior: smooth; }
 
   body {
     background: var(--ground);
@@ -32,7 +32,13 @@
 
   ::selection { background: var(--ink); color: var(--ground); }
 
-  a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink-faint); text-underline-offset: 4px; }
+  a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-faint);
+    text-underline-offset: 4px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
   a:hover { text-decoration-color: var(--ink); }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
@@ -72,6 +78,7 @@
     letter-spacing: 0.08em;
     color: var(--ink-dim);
     text-decoration: none;
+    transition: color 0.15s ease;
   }
   .navlinks a.sec:hover { color: var(--ink); }
   .socials { display: flex; align-items: center; gap: 14px; margin-left: 6px; }
@@ -386,6 +393,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     h1 .caret { animation: none; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
@@ -405,7 +413,7 @@
       <a class="sbtn" aria-label="GitHub" href="https://github.com/funtechnologywith-source/devdoctor" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
       <a class="sbtn" aria-label="X (Twitter)" href="https://x.com/borasajurjya" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></a>
       <a class="sbtn" aria-label="LinkedIn" href="https://www.linkedin.com/in/sajurjya-bora-468ba1420/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
-      <a class="sbtn" aria-label="Email" href="mailto:funtechnologywith@gmail.com"><svg viewBox="0 0 24 24"><path d="M12 12.713L.015 3h23.97L12 12.713zM0 5.562V21h24V5.562l-12 9.725L0 5.562z"/></svg></a>
+      <a class="sbtn" aria-label="Email" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=funtechnologywith@gmail.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 12.713L.015 3h23.97L12 12.713zM0 5.562V21h24V5.562l-12 9.725L0 5.562z"/></svg></a>
     </span>
   </div>
 </nav>
@@ -620,7 +628,7 @@ jobs:
         <div class="fgroup">
           <a href="https://x.com/borasajurjya">x</a>
           <a href="https://www.linkedin.com/in/sajurjya-bora-468ba1420/">linkedin</a>
-          <a href="mailto:funtechnologywith@gmail.com">email</a>
+          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=funtechnologywith@gmail.com" target="_blank" rel="noopener">email</a>
         </div>
       </div>
       <div class="foot2">
@@ -715,7 +723,7 @@ jobs:
     const ctx = bg.getContext('2d');
     const GLYPHS = '#$}{)(][/@=~<>·-+*';
     const CELL_W = 26, CELL_H = 30, FONT = 13, MAXA = 0.34;
-    let cols = 0, rows = 0, chars = [], energy = [], raf = null, last = 0;
+    let cols = 0, rows = 0, chars = [], energy = [], weight = [], jx = [], jy = [], raf = null, last = 0;
     let px = -9999, py = -9999, ambient = 0;
     // ghost scanner: wanders the page when the real pointer goes idle
     let lastMove = 0, gx = -200, gy = 200, tx = 0, ty = 0, ghostInit = false;
@@ -731,8 +739,19 @@ jobs:
       ctx.textAlign = 'center';
       cols = Math.ceil(innerWidth / CELL_W);
       rows = Math.ceil(innerHeight / CELL_H);
-      chars = Array.from({ length: cols * rows }, () => GLYPHS[(Math.random() * GLYPHS.length) | 0]);
-      energy = new Float32Array(cols * rows);
+      const n = cols * rows;
+      chars = Array.from({ length: n }, () => GLYPHS[(Math.random() * GLYPHS.length) | 0]);
+      energy = new Float32Array(n);
+      // break the lattice: many cells stay dark forever, the rest sit
+      // slightly off-grid at their own brightness
+      weight = new Float32Array(n);
+      jx = new Float32Array(n);
+      jy = new Float32Array(n);
+      for (let i = 0; i < n; i++) {
+        weight[i] = Math.random() < 0.42 ? 0 : 0.35 + Math.random() * 0.65;
+        jx[i] = (Math.random() - 0.5) * 12;
+        jy[i] = (Math.random() - 0.5) * 10;
+      }
     }
 
     function frame(t) {
@@ -758,7 +777,7 @@ jobs:
       };
 
       // real pointer wakes cells
-      if (px > -999) wake(px, py, 150, 0.9);
+      if (px > -999) wake(px, py, 160, 1.0);
 
       // ghost scanner takes over when the pointer is idle
       if (t - lastMove > 3000) {
@@ -774,7 +793,7 @@ jobs:
         const ang = Math.atan2(ty - gy, tx - gx);
         gx += Math.cos(ang) * sp;
         gy += Math.sin(ang) * sp;
-        wake(gx, gy, 110, 0.75);
+        wake(gx, gy, 110, 0.88);
       }
 
       // ambient sparks so the field always breathes
@@ -785,20 +804,44 @@ jobs:
       }
 
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      const fade = Math.pow(0.35, dt); // ~1s to die out
-      // the field whispers under the reading column, speaks in the margins
+      const fade = Math.pow(0.48, dt); // ~1.4s tail behind the cursor
+      // the field whispers under the reading column, speaks in the margins;
+      // the boundary is a soft falloff, never a visible seam
       const colL = Math.max(0, (innerWidth - 908) / 2);
       const colR = innerWidth - colL;
+      const SOFT = 130;
+      const quietAt = (x) => {
+        if (x <= colL - SOFT || x >= colR + SOFT) return 1;
+        const dl = Math.min(1, Math.max(0, (x - (colL - SOFT)) / SOFT));
+        const dr = Math.min(1, Math.max(0, (colR + SOFT - x) / SOFT));
+        let t = Math.min(dl, dr);
+        t = t * t * (3 - 2 * t); // smooth the ramp
+        return 1 - t * 0.88;
+      };
       for (let i = 0; i < energy.length; i++) {
         let e = energy[i];
         if (e < 0.02) { energy[i] = 0; continue; }
         energy[i] = e * fade;
-        if (Math.random() < e * 0.06) chars[i] = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        const w = weight[i];
+        if (w === 0) continue; // permanently dark cell
+        const ew = e * w;
+        if (ew < 0.03) continue;
+        if (Math.random() < ew * 0.08) chars[i] = GLYPHS[(Math.random() * GLYPHS.length) | 0];
         const r = (i / cols) | 0, c = i % cols;
-        const x = c * CELL_W + CELL_W / 2;
-        const quiet = x > colL && x < colR ? 0.12 : 1;
-        ctx.fillStyle = 'rgba(255,255,255,' + (e * MAXA * quiet).toFixed(3) + ')';
-        ctx.fillText(chars[i], x, r * CELL_H + FONT + 8);
+        const x = c * CELL_W + CELL_W / 2 + jx[i];
+        const quiet = quietAt(x);
+        const baseline = r * CELL_H + FONT + 8 + jy[i];
+        if (ew > 0.72 && quiet > 0.95) {
+          // hot core: the cell inverts, same corruption language as the headline
+          const a = (ew - 0.72) / 0.28;
+          ctx.fillStyle = 'rgba(255,255,255,' + (a * 0.85).toFixed(3) + ')';
+          ctx.fillRect(x - CELL_W / 2 + 4, baseline - FONT - 2, CELL_W - 8, CELL_H - 9);
+          ctx.fillStyle = 'rgba(0,0,0,' + Math.min(1, a + 0.3).toFixed(3) + ')';
+          ctx.fillText(chars[i], x, baseline);
+        } else {
+          ctx.fillStyle = 'rgba(255,255,255,' + (ew * MAXA * quiet).toFixed(3) + ')';
+          ctx.fillText(chars[i], x, baseline);
+        }
       }
     }
 
