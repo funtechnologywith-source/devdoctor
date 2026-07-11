@@ -13,6 +13,14 @@
   "engines": {
     "node": ">=18.11"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funtechnologywith-source/devdoctor.git"
+  },
+  "homepage": "https://github.com/funtechnologywith-source/devdoctor#readme",
+  "bugs": {
+    "url": "https://github.com/funtechnologywith-source/devdoctor/issues"
+  },
   "keywords": [
     "documentation",
     "readme",
