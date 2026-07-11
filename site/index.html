@@ -79,9 +79,11 @@
     letter-spacing: 0.08em;
     color: var(--ink-dim);
     text-decoration: none;
-    transition: color 0.15s ease;
+    padding-bottom: 3px;
+    background: linear-gradient(var(--ink), var(--ink)) no-repeat left bottom / 0% 1px;
+    transition: color 0.15s ease, background-size 0.22s ease;
   }
-  .navlinks a.sec:hover { color: var(--ink); }
+  .navlinks a.sec:hover { color: var(--ink); background-size: 100% 1px; }
   .socials { display: flex; align-items: center; gap: 14px; margin-left: 6px; }
   .sbtn { display: inline-flex; padding: 4px; }
   .sbtn svg { width: 15px; height: 15px; fill: var(--ink-dim); transition: fill 0.15s ease; }
@@ -157,6 +159,23 @@
     border: 1px solid var(--ink);
     padding: 12px 18px;
     background: var(--ground);
+    position: relative;
+    overflow: hidden;
+  }
+  /* selection flash: a difference-blend bar sweeps the command on copy */
+  .install::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    mix-blend-mode: difference;
+    transform: translateX(-102%);
+    pointer-events: none;
+  }
+  .install.copied::after { animation: yank 0.55s ease; }
+  @keyframes yank {
+    from { transform: translateX(-102%); }
+    to { transform: translateX(102%); }
   }
   .install .p { color: var(--ink-dim); user-select: none; }
   .copybtn {
@@ -171,6 +190,12 @@
     cursor: pointer;
   }
   .copybtn:hover { background: var(--ground); color: var(--ink); }
+  .copybtn.done { animation: pop 0.3s ease; }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
   .ghlink {
     display: flex;
     align-items: center;
@@ -352,6 +377,27 @@
   .reveal { opacity: 0; transform: translateY(12px); }
   .reveal.in { opacity: 1; transform: none; transition: opacity 0.55s ease, transform 0.55s ease; }
 
+  /* when a section reveals, its prompt types in, its rule draws itself,
+     and its list entries land one after another */
+  .reveal .ptext { display: inline-block; clip-path: inset(-10% 102% -10% 0); }
+  .reveal.in .ptext { animation: typeIn 0.65s steps(28, end) 0.15s forwards; }
+  @keyframes typeIn { to { clip-path: inset(-10% -2% -10% 0); } }
+
+  .reveal hr { transform: scaleX(0); transform-origin: left center; }
+  .reveal.in hr { transform: scaleX(1); transition: transform 0.6s ease 0.2s; }
+
+  .reveal :is(.findings, .why, .steps) > li { opacity: 0; transform: translateY(10px); }
+  .reveal.in :is(.findings, .why, .steps) > li {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reveal.in :is(.findings, .why, .steps) > li:nth-child(1) { transition-delay: 0.2s; }
+  .reveal.in :is(.findings, .why, .steps) > li:nth-child(2) { transition-delay: 0.3s; }
+  .reveal.in :is(.findings, .why, .steps) > li:nth-child(3) { transition-delay: 0.4s; }
+  .reveal.in :is(.findings, .why, .steps) > li:nth-child(4) { transition-delay: 0.5s; }
+  .reveal.in :is(.findings, .why, .steps) > li:nth-child(5) { transition-delay: 0.6s; }
+
   .vitals {
     display: flex;
     flex-wrap: wrap;
@@ -365,26 +411,59 @@
   footer {
     margin-top: 110px;
     border-top: 1px solid var(--hairline);
-    padding: 40px 0 64px;
+    background: var(--ground); /* solid: the field never bleeds through */
+    position: relative;
+    z-index: 2;
+    padding: 60px 0 44px;
   }
-  .foot {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px 40px;
+  .fgrid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+  }
+  .fbrand .fmark { font-weight: 700; font-size: 16px; color: var(--ink); }
+  .fbrand .fmark .v { font-weight: 400; font-size: 12px; color: var(--ink-dim); margin-left: 8px; }
+  .fbrand p {
+    margin-top: 12px;
     font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    max-width: 32ch;
   }
-  .fgroup { display: flex; flex-wrap: wrap; gap: 12px 28px; }
-  .foot2 {
+  .fcol h3 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+  .fcol a {
+    display: block;
+    width: fit-content;
+    font-size: 13.5px;
+    color: var(--ink-body);
+    text-decoration: none;
+    padding: 4px 0;
+    background: linear-gradient(var(--ink), var(--ink)) no-repeat left bottom / 0% 1px;
+    transition: color 0.15s ease, background-size 0.22s ease;
+  }
+  .fcol a:hover { color: var(--ink); background-size: 100% 1px; }
+  .fbar {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px 40px;
-    margin-top: 30px;
+    margin-top: 52px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hairline);
     font-size: 12.5px;
     color: var(--ink-dim);
   }
-  .foot2 a { color: var(--ink-body); }
+  .fbar a { color: var(--ink-body); }
+  @media (max-width: 640px) {
+    .fgrid { grid-template-columns: 1fr; gap: 30px; }
+  }
 
   @media (max-width: 560px) {
     .findings li { grid-template-columns: 1fr; gap: 6px; }
@@ -624,19 +703,26 @@ jobs:
 
   <footer>
     <div class="col">
-      <div class="foot">
-        <div class="fgroup">
+      <div class="fgrid">
+        <div class="fbrand">
+          <div class="fmark">devdoctor<span class="v">v0.1.1</span></div>
+          <p>Reads your markdown, reads your code, and reports every place
+            they disagree. No network, no config, nothing executed.</p>
+        </div>
+        <div class="fcol">
+          <h3>Project</h3>
           <a href="https://github.com/funtechnologywith-source/devdoctor">github</a>
           <a href="https://www.npmjs.com/package/@sajurjyabora/devdoctor">npm</a>
           <a href="https://github.com/motdotla/dotenv#readme">the dotenv find</a>
         </div>
-        <div class="fgroup">
-          <a href="https://x.com/borasajurjya">x</a>
+        <div class="fcol">
+          <h3>Elsewhere</h3>
+          <a href="https://x.com/borasajurjya">x / twitter</a>
           <a href="https://www.linkedin.com/in/sajurjya-bora-468ba1420/">linkedin</a>
           <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=funtechnologywith@gmail.com" target="_blank" rel="noopener">email</a>
         </div>
       </div>
-      <div class="foot2">
+      <div class="fbar">
         <span>built by <a href="https://github.com/funtechnologywith-source">Sajurjya Bora</a> · Assam, India · MIT license</span>
         <span>$ exit 0</span>
       </div>
@@ -851,6 +937,14 @@ jobs:
       }
     }, { threshold: 0.12 });
     document.querySelectorAll('section').forEach((s) => {
+      // wrap prompt contents so the command can "type" itself in
+      const p = s.querySelector('.prompt');
+      if (p && !p.querySelector('.ptext')) {
+        const span = document.createElement('span');
+        span.className = 'ptext';
+        while (p.firstChild) span.appendChild(p.firstChild);
+        p.appendChild(span);
+      }
       s.classList.add('reveal');
       io.observe(s);
     });
@@ -883,13 +977,24 @@ jobs:
   /* ---------- copy button ---------- */
   document.querySelectorAll('.copybtn').forEach((btn) => {
     btn.addEventListener('click', async () => {
+      const box = btn.closest('.installrow')?.querySelector('.install');
       try {
         await navigator.clipboard.writeText(btn.dataset.copy);
-        btn.textContent = 'copied';
+        btn.textContent = '✓ copied';
+        btn.classList.add('done');
+        if (box && !reduced) {
+          box.classList.remove('copied');
+          void box.offsetWidth; // restart the sweep on rapid re-clicks
+          box.classList.add('copied');
+        }
       } catch {
         btn.textContent = 'select it';
       }
-      setTimeout(() => { btn.textContent = 'copy'; }, 1500);
+      setTimeout(() => {
+        btn.textContent = 'copy';
+        btn.classList.remove('done');
+        if (box) box.classList.remove('copied');
+      }, 1500);
     });
   });
 })();
