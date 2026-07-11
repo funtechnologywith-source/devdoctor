@@ -1,6 +1,9 @@
 {
-  "name": "devdoctor",
+  "name": "@sajurjyabora/devdoctor",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Documentation drift detector — finds places where your README no longer matches your code.",
   "type": "module",
   "bin": {

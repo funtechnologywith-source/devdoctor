@@ -34,9 +34,16 @@ code blocks are parsed, never run.
 ## Quick start
 
 ```bash
-npx devdoctor check-docs            # check the current directory
-npx devdoctor check-docs ../repo    # check another repo
-npx devdoctor check-docs --json     # machine-readable output
+npx @sajurjyabora/devdoctor check-docs            # check the current directory
+npx @sajurjyabora/devdoctor check-docs ../repo    # check another repo
+npx @sajurjyabora/devdoctor check-docs --json     # machine-readable output
+```
+
+Or install it globally and use the short command:
+
+```bash
+npm install -g @sajurjyabora/devdoctor
+devdoctor check-docs
 ```
 
 Exit code `0` when docs are clean, `1` when drift is found.
@@ -61,7 +68,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npx devdoctor check-docs
+      - run: npx @sajurjyabora/devdoctor check-docs
 ```
 
 ## What it catches
