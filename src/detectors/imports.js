@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { discoverSources } from '../discover.js';
 
 const JS_LANGS = new Set(['js', 'javascript', 'jsx', 'mjs', 'cjs', 'node', 'ts', 'typescript', 'tsx']);
@@ -23,22 +22,14 @@ export function detectDeadImports({ root, docs, ctx }) {
   let pyNames = null;
 
   for (const doc of docs) {
-    const docDir = path.dirname(doc.file);
     for (const block of doc.codeBlocks) {
       if (JS_LANGS.has(block.lang)) {
         for (const imp of jsImports(block.value)) {
           const line = block.line + imp.lineOffset;
           if (imp.source.startsWith('.')) {
-            // relative import in an example: the file should exist
-            if (!resolvesToFile(docDir, imp.source) && !resolvesToFile(root, imp.source)) {
-              findings.push({
-                detector: 'imports',
-                severity: 'broken',
-                file: doc.file,
-                line,
-                message: `example imports "${imp.source}" but no such file exists`,
-              });
-            }
+            // relative imports in doc examples almost always refer to the
+            // reader's own project ("./errorReporter.mjs"), not this repo —
+            // that's not drift, so stay quiet
             continue;
           }
           if (!selfNames.has(imp.source)) continue; // third-party: not our drift
@@ -172,17 +163,6 @@ function collectPyNames(root) {
     for (const m of src.matchAll(/^([A-Za-z_]\w*)\s*(?::[^=\n]+)?=\s*/gm)) names.add(m[1]);
   }
   return names;
-}
-
-function resolvesToFile(base, source) {
-  const target = path.resolve(base, source);
-  const candidates = [
-    target,
-    ...['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx'].map((ext) => target + ext),
-    path.join(target, 'index.js'),
-    path.join(target, 'index.ts'),
-  ];
-  return candidates.some((c) => fs.existsSync(c) && fs.statSync(c).isFile());
 }
 
 function nearest(input, candidates) {

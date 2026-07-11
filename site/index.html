@@ -403,7 +403,7 @@
 <canvas id="bg" aria-hidden="true"></canvas>
 
 <nav>
-  <a class="wordmark" href="#">devdoctor<span class="v">v0.1.0</span></a>
+  <a class="wordmark" href="#">devdoctor<span class="v">v0.1.1</span></a>
   <div class="navlinks">
     <a class="sec" href="#proof">proof</a>
     <a class="sec" href="#why">why</a>
@@ -443,31 +443,35 @@
 
     <!-- 1 · the receipt -->
     <section id="proof">
-      <p class="prompt"><span class="p">$</span>devdoctor check-docs ../click <span class="cmt"># pallets/click — 33k stars</span></p>
+      <p class="prompt"><span class="p">$</span>devdoctor check-docs ../dotenv <span class="cmt"># 120M downloads a week</span></p>
       <hr>
 
       <div class="term">
-        <div class="term-bar"><span>check-docs · ../click</span><span>real output</span></div>
+        <div class="term-bar"><span>check-docs · ../dotenv</span><span>real output</span></div>
         <div class="term-body" id="replay">
-          <div class="line t-dim">  devdoctor · check-docs ../click</div>
+          <div class="line t-dim">  devdoctor · check-docs ../dotenv</div>
           <div class="line"> </div>
-          <div class="line t-ink">  Code blocks that don't parse (1)</div>
+          <div class="line t-ink">  Broken internal links (2)</div>
           <div class="line t-dim">  ─────────────────────────────────────────────</div>
-          <div class="line">   <span class="chip b">BROKEN</span>  <span class="t-loc">docs/utils.md:333</span></div>
-          <div class="line t-dim">            python block doesn't parse: IndentationError:</div>
-          <div class="line t-dim">            expected an indented block after function definition</div>
+          <div class="line">   <span class="chip b">BROKEN</span>  <span class="t-loc">README.md:67</span></div>
+          <div class="line t-dim">            anchor "#how-do-i-use-dotenv-with-import"</div>
+          <div class="line t-dim">            doesn't match any heading in this file</div>
+          <div class="line">   <span class="chip b">BROKEN</span>  <span class="t-loc">README-es.md:65</span></div>
+          <div class="line t-dim">            anchor "#como-uso-dotenv-con-import" — the same</div>
+          <div class="line t-dim">            link, in the Spanish translation</div>
           <div class="line"> </div>
           <div class="line t-dim">  ─────────────────────────────────────────────</div>
-          <div class="line"><span class="t-ink">  1 issue (1 broken)</span><span class="t-dim"> · 40 markdown files · 3.4s</span></div>
+          <div class="line"><span class="t-ink">  2 issues (2 broken)</span><span class="t-dim"> · 6 markdown files · 0.5s</span></div>
           <div class="line"> </div>
           <div class="line"><span class="t-dim">$ </span><span class="term-caret"></span></div>
         </div>
       </div>
 
-      <p class="receipt out">That's click — some of the most carefully maintained docs in Python.
-        A config example lost its indentation during a docs migration and crashed as written.
-        devdoctor caught it on the first run; the fix is upstream in
-        <a href="https://github.com/pallets/click/pull/3683">pallets/click#3683</a>.</p>
+      <p class="receipt out">That's dotenv — 120 million downloads a week. The "Import with
+        ES6" link near the top of its README points at a FAQ heading that no longer exists.
+        <a href="https://github.com/motdotla/dotenv#readme">Open the README</a> and click it
+        yourself; that's the whole verification. devdoctor found it — and its Spanish twin —
+        in half a second.</p>
     </section>
 
     <!-- 2 · why -->
@@ -624,7 +628,7 @@ jobs:
         <div class="fgroup">
           <a href="https://github.com/funtechnologywith-source/devdoctor">github</a>
           <a href="https://www.npmjs.com/package/@sajurjyabora/devdoctor">npm</a>
-          <a href="https://github.com/pallets/click/pull/3683">the click fix</a>
+          <a href="https://github.com/motdotla/dotenv#readme">the dotenv find</a>
         </div>
         <div class="fgroup">
           <a href="https://x.com/borasajurjya">x</a>

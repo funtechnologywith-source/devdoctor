@@ -6,27 +6,32 @@ exist, examples that import functions you deleted last quarter.
 
 ## It finds real bugs
 
-This is devdoctor running against [pallets/click](https://github.com/pallets/click)
-(33k ⭐, some of the most carefully maintained docs in Python):
+This is devdoctor running against [dotenv](https://github.com/motdotla/dotenv)
+— the package with **120 million weekly downloads** that half the JavaScript
+world loads its secrets with:
 
 ```
-$ devdoctor check-docs ../click
+$ devdoctor check-docs ../dotenv
 
-  devdoctor · check-docs ../click
+  devdoctor · check-docs ../dotenv
 
-  🧪 Code blocks that don't parse (1)
+  🔗 Broken internal links (2)
   ──────────────────────────────────────────────────────────
-   BROKEN  docs/utils.md:333
-           python block doesn't parse: IndentationError:
-           expected an indented block after function definition
+   BROKEN  README.md:67
+           anchor "#how-do-i-use-dotenv-with-import"
+           doesn't match any heading in this file
+   BROKEN  README-es.md:65
+           anchor "#como-uso-dotenv-con-import"
+           doesn't match any heading in this file
 
   ────────────────────────────────────────────────────────────
-  1 issue (1 broken) · 40 markdown files · 3.4s
+  2 issues (2 broken) · 6 markdown files · 525ms
 ```
 
-That's a genuine bug: the `read_config()` example in click's docs lost its
-body indentation during their docs migration, so the snippet crashes as
-written. Fixed upstream in [pallets/click#3683](https://github.com/pallets/click/pull/3683).
+Verify it yourself in ten seconds: open [dotenv's README](https://github.com/motdotla/dotenv#readme),
+find `Import with ES6` near the top, click it. Nothing happens — the FAQ
+heading it points to no longer exists in the file. Same story in the Spanish
+translation, and devdoctor found both in half a second.
 
 Zero config. No network. Nothing in the scanned repo is ever executed —
 code blocks are parsed, never run.
