@@ -1,13 +1,67 @@
 # devdoctor 🩺
 
-**Documentation drift detector.** Scans a repo and flags the places where the
-README and docs no longer match the code — broken links, commands that don't
-exist anymore, examples that import functions you deleted last quarter.
+**Documentation drift detector.** Your README was true once. devdoctor finds
+the places where it stopped being true — broken links, commands that no longer
+exist, examples that import functions you deleted last quarter.
 
-Zero config. No network. CI-friendly. Runs in seconds.
+## It finds real bugs
+
+This is devdoctor running against [pallets/click](https://github.com/pallets/click)
+(33k ⭐, some of the most carefully maintained docs in Python):
+
+```
+$ devdoctor check-docs ../click
+
+  devdoctor · check-docs ../click
+
+  🧪 Code blocks that don't parse (1)
+  ──────────────────────────────────────────────────────────
+   BROKEN  docs/utils.md:333
+           python block doesn't parse: IndentationError:
+           expected an indented block after function definition
+
+  ────────────────────────────────────────────────────────────
+  1 issue (1 broken) · 40 markdown files · 3.4s
+```
+
+That's a genuine bug: the `read_config()` example in click's docs lost its
+body indentation during their docs migration, so the snippet crashes as
+written. Fixed upstream in [pallets/click#3683](https://github.com/pallets/click/pull/3683).
+
+Zero config. No network. Nothing in the scanned repo is ever executed —
+code blocks are parsed, never run.
+
+## Quick start
 
 ```bash
-npx devdoctor check-docs
+npx devdoctor check-docs            # check the current directory
+npx devdoctor check-docs ../repo    # check another repo
+npx devdoctor check-docs --json     # machine-readable output
+```
+
+Exit code `0` when docs are clean, `1` when drift is found.
+
+## Use it in CI
+
+Drop this in `.github/workflows/devdoctor.yml` and drifted docs fail the build:
+
+```yaml
+name: docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx devdoctor check-docs
 ```
 
 ## What it catches
@@ -23,30 +77,6 @@ npx devdoctor check-docs
 Every finding comes with file, line number, and — when devdoctor can guess —
 a `did you mean …?` hint.
 
-## Usage
-
-```bash
-# check the current directory
-npx devdoctor check-docs
-
-# check another repo
-npx devdoctor check-docs ../some-project
-
-# machine-readable output
-npx devdoctor check-docs --json
-
-# just the summary line
-npx devdoctor check-docs --quiet
-```
-
-Exit code is `0` when the docs are clean and `1` when drift is found, so it
-drops straight into CI:
-
-```yaml
-- name: Check docs for drift
-  run: npx devdoctor check-docs
-```
-
 ## How it works
 
 - Markdown is parsed to an AST with [remark](https://github.com/remarkjs/remark)
@@ -57,18 +87,14 @@ drops straight into CI:
 - JS/TS snippets are parsed with [`@babel/parser`](https://babeljs.io/docs/babel-parser);
   Python snippets are compiled in a single local `python` subprocess
   (skipped when Python isn't installed).
-- Doc snippets are treated as fragments: indented excerpts are dedented,
-  decorator-only blocks get a stub body, and blocks containing `...`
-  placeholders or `>>>` REPL transcripts are left alone.
-- Changelogs are skipped — old version numbers live there on purpose.
-
-Everything runs locally. Nothing is executed from the repo being scanned —
-code blocks are parsed, never run.
+- Doc snippets are treated as fragments, not programs: indented excerpts are
+  dedented, decorator-only blocks get a stub body, and blocks containing
+  `...` placeholders or `>>>` REPL transcripts are left alone.
 
 ## What it deliberately ignores
 
 - External URLs (that's a job for a link checker with a network budget)
-- `CHANGELOG` / `HISTORY` / release-notes files
+- `CHANGELOG` / `HISTORY` / release-notes files — old versions live there on purpose
 - Version ranges (`^1.2.0`) and other projects' versions in prose
 - Imports of third-party packages in examples
 
@@ -79,4 +105,4 @@ Python code blocks.
 
 ## License
 
-MIT
+[MIT](LICENSE)
