@@ -1,6 +1,6 @@
 # devdoctor 🩺
 
-**Documentation drift detector.** Your README was true once. devdoctor finds
+**[devdoctor.netlify.app](https://devdoctor.netlify.app)** · **Documentation drift detector.** Your README was true once. devdoctor finds
 the places where it stopped being true — broken links, commands that no longer
 exist, examples that import functions you deleted last quarter.
 
