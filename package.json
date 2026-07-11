@@ -1,0 +1,33 @@
+{
+  "name": "devdoctor",
+  "version": "0.1.0",
+  "description": "Documentation drift detector — finds places where your README no longer matches your code.",
+  "type": "module",
+  "bin": {
+    "devdoctor": "bin/devdoctor.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "engines": {
+    "node": ">=18.11"
+  },
+  "keywords": [
+    "documentation",
+    "readme",
+    "lint",
+    "docs",
+    "drift",
+    "ci"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@babel/parser": "^7.25.0",
+    "github-slugger": "^2.0.0",
+    "picocolors": "^1.1.0",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.0"
+  }
+}
