@@ -160,8 +160,12 @@
     padding: 12px 18px;
     background: var(--ground);
     position: relative;
+    max-width: 100%;
+    min-width: 0;
     overflow: hidden;
+    overflow-x: auto; /* long command scrolls inside, never widens the page */
   }
+  .install > span:not(.p) { white-space: nowrap; }
   /* selection flash: a difference-blend bar sweeps the command on copy */
   .install::after {
     content: '';
@@ -468,7 +472,9 @@
   @media (max-width: 560px) {
     .findings li { grid-template-columns: 1fr; gap: 6px; }
     .installrow { flex-direction: column; align-items: stretch; }
-    .install { justify-content: space-between; }
+    .install { justify-content: flex-start; }
+    .copybtn { padding: 11px 16px; }
+    .ghlink { padding: 4px 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
